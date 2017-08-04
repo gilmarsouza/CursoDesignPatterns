@@ -10,20 +10,59 @@ using CursoDesignPatterns.Investimentos.TiposInvestidores;
 using CursoDesignPatterns.Orcamento;
 using CursoDesignPatterns.Orcamento.Descontos;
 using CursoDesignPatterns.Orcamento.Impostos;
+using CursoDesignPatterns.Relatorios;
 
 namespace CursoDesignPatterns
 {
     class Program
     {
+        private static Orcamento.Orcamento orcamento;
+        private static List<Conta> contas; 
+        
+
         static void Main(string[] args)
         {
             //TestandoImpostos();
             //TestandoInvestimentos();
             //TestandoDescontos();
             //TestaCorrente();
-            TestaCadeiaResposta();
+            //TestaCadeiaResposta();
+            //TestaImpostoCondicional();
+            TestarRelatorios();
 
             Console.ReadKey();
+        }
+
+        public static void TestarRelatorios()
+        {
+            CriarListaContas();
+
+            var relatorioSimples = new RelatorioSimples(contas);
+            var relatorioComplexo = new RelatorioComplexo(contas);
+
+            Console.WriteLine("************ Relatório Simples ************");
+            relatorioSimples.Imprime();
+
+            Console.WriteLine();
+            Console.WriteLine("************ Relatório Complexo ************");
+            relatorioComplexo.Imprime();
+        }
+
+
+        public static void TestaImpostoCondicional()
+        {
+            CriaOrcamento();
+
+            var iccp = new Icpp();
+            var ikcv = new Ikcv();
+            var ihit = new Ihit();
+
+            Console.WriteLine("Cálcula Imposto ICCP: {0:C}", iccp.Calcula(orcamento));
+            Console.WriteLine("Cálcula Imposto IKCV: {0:C}", ikcv.Calcula(orcamento));
+
+            //Forçar Item Repetido
+            orcamento.AdicionaItem(new Item("PINCEL", 250.0));
+            Console.WriteLine("Cálcula Imposto IHIT: {0:C}", ihit.Calcula(orcamento));
         }
 
         public static void TestaCadeiaResposta()
@@ -32,7 +71,7 @@ namespace CursoDesignPatterns
             var r2 = new RespostaEmPorcento(r3);
             var r1 = new RespostaEmCsv(r2);
 
-            var conta = new Conta("Fulano de Tal", 123658.96);
+            var conta = new Conta("Fulano de Tal", "111", "132", 123658.96);
             var requisicao = new Requisicao(Formato.Xml);
 
             r1.Responde(requisicao, conta);
@@ -50,10 +89,7 @@ namespace CursoDesignPatterns
             d2.Proximo = d3;
             d3.Proximo = d4;
 
-            Orcamento.Orcamento orcamento = new Orcamento.Orcamento(500.0);
-            orcamento.AdicionaItem(new Item("CANETA", 250.0));
-            orcamento.AdicionaItem(new Item("LAPIS", 250.0));
-            orcamento.AdicionaItem(new Item("BORRACHA", 250.0));
+            CriaOrcamento();
 
             double desconto = d1.Desconta(orcamento);
             Console.WriteLine(desconto);
@@ -64,13 +100,7 @@ namespace CursoDesignPatterns
         {
             var calculador = new CalculadorDeDescontos();
 
-            var orcamento = new Orcamento.Orcamento(500.0);
-            orcamento.AdicionaItem(new Item("CANETA", 250.0));
-            orcamento.AdicionaItem(new Item("LAPIS", 250.0));
-            orcamento.AdicionaItem(new Item("BORRACHA", 250.0));
-            orcamento.AdicionaItem(new Item("APONTADOR", 250.0));
-            orcamento.AdicionaItem(new Item("CADERNO", 250.0));
-            orcamento.AdicionaItem(new Item("PINCEL", 250.0));
+            CriaOrcamento();
 
             var desconto = calculador.Calcula(orcamento);
 
@@ -84,7 +114,7 @@ namespace CursoDesignPatterns
             var moderado = new Moderado();
             var arrojado = new Arrojado();
 
-            var conta = new Conta("Fulano", 1500);
+            var conta = new Conta("Fulano", "111", "132", 1500);
 
             var realizador = new RealizadorDeInvestimentos();
 
@@ -99,7 +129,7 @@ namespace CursoDesignPatterns
             var icms = new Icms();
             var iccc = new Iccc();
 
-            var orcamento = new Orcamento.Orcamento(500.0);
+            CriaOrcamento();
 
             var calculador = new CalculadorDeImpostos();
 
@@ -108,6 +138,29 @@ namespace CursoDesignPatterns
             calculador.RealizaCalculo(orcamento, iccc);
         }
 
+        private static void CriaOrcamento()
+        {
+            orcamento = new Orcamento.Orcamento(500.0);
+            orcamento.AdicionaItem(new Item("CANETA", 250.0));
+            orcamento.AdicionaItem(new Item("LAPIS", 250.0));
+            orcamento.AdicionaItem(new Item("BORRACHA", 250.0));
+            orcamento.AdicionaItem(new Item("APONTADOR", 250.0));
+            orcamento.AdicionaItem(new Item("CADERNO", 250.0));
+            orcamento.AdicionaItem(new Item("PINCEL", 250.0));
+        }
+
+        private static void CriarListaContas()
+        {
+            contas = new List<Conta>();
+
+            contas.Add(new Conta("Fulano de tal", "123-45", "32121-6", 500.00));
+            contas.Add(new Conta("Beltrano de tal", "123-45", "123-5", 500.00));
+            contas.Add(new Conta("Ciclano de tal", "3215-45", "1456-7", 500.00));
+            contas.Add(new Conta("Fulano de Birl", "12323-546", "12325-8", 500.00));
+            contas.Add(new Conta("Gilmento de Pau", "1234165-9", "2165-8", 500.00));
+            contas.Add(new Conta("Luis Inácio", "32135-8", "165-8", 500.00));
+            contas.Add(new Conta("Rosineide Josicleia", "12354-7", "1258-9", 500.00));
+        }
 
     }
 }

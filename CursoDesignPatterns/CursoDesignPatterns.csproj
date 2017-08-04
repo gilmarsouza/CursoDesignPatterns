@@ -59,7 +59,11 @@
     <Compile Include="Orcamento\Impostos\Icms.cs" />
     <Compile Include="Interfaces\IImposto.cs" />
     <Compile Include="Interfaces\IInvestimento.cs" />
+    <Compile Include="Orcamento\Impostos\Icpp.cs" />
+    <Compile Include="Orcamento\Impostos\Ihit.cs" />
+    <Compile Include="Orcamento\Impostos\Ikcv.cs" />
     <Compile Include="Orcamento\Impostos\Iss.cs" />
+    <Compile Include="Orcamento\Impostos\TemplateDeImpostoCondicional.cs" />
     <Compile Include="Orcamento\Item.cs" />
     <Compile Include="Investimentos\TiposInvestidores\Moderado.cs" />
     <Compile Include="Orcamento\Orcamento.cs" />
@@ -69,6 +73,9 @@
     <Compile Include="Investimentos\Requisicao.cs" />
     <Compile Include="Interfaces\IResposta.cs" />
     <Compile Include="Orcamento\Descontos\SemDesconto.cs" />
+    <Compile Include="Relatorios\Relatorio.cs" />
+    <Compile Include="Relatorios\RelatorioComplexo.cs" />
+    <Compile Include="Relatorios\RelatorioSimples.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
