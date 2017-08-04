@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 using CursoDesignPatterns.Investimentos;
 using CursoDesignPatterns.Investimentos.Respostas;
 using CursoDesignPatterns.Investimentos.TiposInvestidores;
@@ -27,11 +23,50 @@ namespace CursoDesignPatterns
             //TestandoDescontos();
             //TestaCorrente();
             //TestaCadeiaResposta();
-            //TestaImpostoCondicional();
-            TestarRelatorios();
+            //TestarRelatorios();
+
+
+
+            TesteImpostoMuitoAltoCombinado();
 
             Console.ReadKey();
         }
+
+        public static void TesteImpostoMuitoAltoCombinado()
+        {
+            CriaOrcamento();
+
+            var iss = new Iss();
+            var impostoMuitoAlto = new ImpostoMuitoAlto(iss);
+
+            Console.WriteLine("Teste Imposto Muito Alto (Estilo Brasil)");
+            Console.WriteLine();
+
+            Console.WriteLine("Cálcula Imposto ISS: {0:C}", iss.Calcula(orcamento));
+            Console.WriteLine("Cálcula Imposto 'Muito Alto': {0:C}", impostoMuitoAlto.Calcula(orcamento));
+        }
+
+        public static void TesteImpostoComposto()
+        {
+            CriaOrcamento();
+
+            var iccp = new Icpp(null);
+            var ikcv = new Ikcv(iccp);
+            var ihit = new Ihit(ikcv);
+
+            Console.WriteLine("Teste Imposto Composto");
+            Console.WriteLine();
+
+            Console.WriteLine("Cálcula Imposto ICCP: {0:C}", iccp.Calcula(orcamento));
+            Console.WriteLine("Cálcula Imposto IKCV: {0:C}", ikcv.Calcula(orcamento));
+
+            //Forçar Item Repetido
+            orcamento.AdicionaItem(new Item("PINCEL", 250.0));
+            Console.WriteLine("Cálcula Imposto IHIT: {0:C}", ihit.Calcula(orcamento));
+            Console.WriteLine();
+        }
+
+
 
         public static void TestarRelatorios()
         {
@@ -53,9 +88,12 @@ namespace CursoDesignPatterns
         {
             CriaOrcamento();
 
-            var iccp = new Icpp();
-            var ikcv = new Ikcv();
-            var ihit = new Ihit();
+            var iccp = new Icpp(null);
+            var ikcv = new Ikcv(null);
+            var ihit = new Ihit(null);
+
+            Console.WriteLine("Teste Imposto Condicional");
+            Console.WriteLine();
 
             Console.WriteLine("Cálcula Imposto ICCP: {0:C}", iccp.Calcula(orcamento));
             Console.WriteLine("Cálcula Imposto IKCV: {0:C}", ikcv.Calcula(orcamento));
@@ -63,6 +101,7 @@ namespace CursoDesignPatterns
             //Forçar Item Repetido
             orcamento.AdicionaItem(new Item("PINCEL", 250.0));
             Console.WriteLine("Cálcula Imposto IHIT: {0:C}", ihit.Calcula(orcamento));
+            Console.WriteLine();
         }
 
         public static void TestaCadeiaResposta()
@@ -125,9 +164,9 @@ namespace CursoDesignPatterns
 
         public static void TestandoImpostos()
         {
-            var iss = new Iss();
-            var icms = new Icms();
-            var iccc = new Iccc();
+            var iss = new Iss(null);
+            var icms = new Icms(null);
+            var iccc = new Iccc(null);
 
             CriaOrcamento();
 

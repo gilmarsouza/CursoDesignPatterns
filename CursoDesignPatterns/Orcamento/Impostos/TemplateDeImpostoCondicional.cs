@@ -1,20 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CursoDesignPatterns.Interfaces;
 
 namespace CursoDesignPatterns.Orcamento.Impostos
 {
-    public abstract class TemplateDeImpostoCondicional: IImposto
+    public abstract class TemplateDeImpostoCondicional: Imposto
     {
-        public double Calcula(Orcamento orcamento)
+        protected TemplateDeImpostoCondicional(Imposto outroImposto) : base(outroImposto) { }
+
+        protected TemplateDeImpostoCondicional() : base() { }
+
+        public override double Calcula(Orcamento orcamento)
         {
             if (DeveUsarMaximaTaxacao(orcamento))
-                return MaximaTaxacao(orcamento);
+                return MaximaTaxacao(orcamento) + CalculoDoOutroImposto(orcamento);
 
-            return MinimaTaxacao(orcamento);
+            return MinimaTaxacao(orcamento) + CalculoDoOutroImposto(orcamento);
         }
 
         protected abstract bool DeveUsarMaximaTaxacao(Orcamento orcamento);

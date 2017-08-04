@@ -1,12 +1,13 @@
-﻿using CursoDesignPatterns.Interfaces;
-
-namespace CursoDesignPatterns.Orcamento.Impostos
+﻿namespace CursoDesignPatterns.Orcamento.Impostos
 {
-    public class Iss: IImposto
+    public class Iss: Imposto
     {
-        public double Calcula(CursoDesignPatterns.Orcamento.Orcamento orcamento)
+        public Iss(Imposto outroImposto) : base(outroImposto) { }
+        public Iss() : base() { }
+
+        public override double Calcula(Orcamento orcamento)
         {
-            return orcamento.Valor * 0.06;
+            return orcamento.Valor * 0.06 + CalculoDoOutroImposto(orcamento);
         }
     }
 }

@@ -43,6 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Investimentos\Filtro.cs" />
+    <Compile Include="Investimentos\Filtros\FiltroMaiorQue500MilReais.cs" />
+    <Compile Include="Investimentos\Filtros\FiltroMenorQue100Reais.cs" />
+    <Compile Include="Investimentos\Filtros\FiltroMesmoMes.cs" />
     <Compile Include="Investimentos\Respostas\RespostaEmPorcento.cs" />
     <Compile Include="Investimentos\Respostas\RespostaEmCsv.cs" />
     <Compile Include="Investimentos\Respostas\RespostaEmXml.cs" />
@@ -57,11 +61,12 @@
     <Compile Include="Orcamento\Descontos\DescontoPorVendaCasada.cs" />
     <Compile Include="Orcamento\Impostos\Iccc.cs" />
     <Compile Include="Orcamento\Impostos\Icms.cs" />
-    <Compile Include="Interfaces\IImposto.cs" />
+    <Compile Include="Orcamento\Impostos\Imposto.cs" />
     <Compile Include="Interfaces\IInvestimento.cs" />
     <Compile Include="Orcamento\Impostos\Icpp.cs" />
     <Compile Include="Orcamento\Impostos\Ihit.cs" />
     <Compile Include="Orcamento\Impostos\Ikcv.cs" />
+    <Compile Include="Orcamento\Impostos\ImpostoMuitoAlto.cs" />
     <Compile Include="Orcamento\Impostos\Iss.cs" />
     <Compile Include="Orcamento\Impostos\TemplateDeImpostoCondicional.cs" />
     <Compile Include="Orcamento\Item.cs" />

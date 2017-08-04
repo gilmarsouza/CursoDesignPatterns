@@ -8,6 +8,9 @@ namespace CursoDesignPatterns.Orcamento.Impostos
 {
     public class Ihit: TemplateDeImpostoCondicional
     {
+        public Ihit(Imposto outroImposto) : base(outroImposto) { }
+        public Ihit() : base() { }
+
         protected override bool DeveUsarMaximaTaxacao(Orcamento orcamento)
         {
             return orcamento.Itens.GroupBy(x => x.Nome).Any(y => y.Count() > 1);
@@ -22,5 +25,6 @@ namespace CursoDesignPatterns.Orcamento.Impostos
         {
             return orcamento.Valor * 0.01 * orcamento.Itens.Count;
         }
+
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace CursoDesignPatterns.Investimentos
+﻿using System;
+
+namespace CursoDesignPatterns.Investimentos
 {
     public class Conta
     {
@@ -6,6 +8,7 @@
         public string Agencia { get; set; }
         public string NumeroConta { get; set; }
         public double Saldo { get; set; }
+        public DateTime DataAbertura { get; set; }
 
         public void Deposita(double valor)
         {
